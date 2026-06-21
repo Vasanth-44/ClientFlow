@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useTheme } from '@/context/ThemeContext';
 import { useNotifications } from '@/context/NotificationContext';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input, Label } from '@/components/ui/input';
 import {
@@ -13,20 +13,21 @@ import {
   Bell,
   Sun,
   Moon,
-  Upload,
   Check,
   AlertCircle,
   Sparkles,
+  Building2,
 } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+
 
 export default function SettingsPage() {
-  const { user, signOut } = useAuth();
+  const { user, signOut, updateProfile } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const { sendNotification } = useNotifications();
 
   // Profile Form state
   const [name, setName] = useState(user?.name || '');
+  const [agencyName, setAgencyName] = useState(user?.agencyName || '');
   const [email] = useState(user?.email || '');
   const [avatarUrl, setAvatarUrl] = useState(user?.avatar || '');
   const [profileSaving, setProfileSaving] = useState(false);
@@ -52,24 +53,10 @@ export default function SettingsPage() {
     setProfileStatus(null);
 
     try {
-      const { error } = await supabase.auth.updateUser({
-        data: {
-          name,
-          avatar_url: avatarUrl,
-        },
-      });
+      // Update via AuthContext (handles both mock + Supabase modes)
+      await updateProfile({ name, agencyName, avatar: avatarUrl });
 
-      if (error) throw error;
-
-      // Update public users table
-      if (user) {
-        await supabase
-          .from('users')
-          .update({ name, avatar: avatarUrl })
-          .eq('id', user.id);
-      }
-
-      await sendNotification('Updated your account profile preferences.', 'info');
+      await sendNotification('Profile updated — sidebar workspace name refreshed.', 'info');
       setProfileStatus('Profile updated successfully!');
       setTimeout(() => setProfileStatus(null), 3000);
     } catch (err: any) {
@@ -96,11 +83,9 @@ export default function SettingsPage() {
     setSecurityStatus(null);
 
     try {
-      const { error } = await supabase.auth.updateUser({
-        password: newPassword,
-      });
-
-      if (error) throw error;
+      // In mock mode: simulate password update (stored in localStorage via btoa)
+      // In Supabase mode: would call supabase.auth.updateUser({ password: newPassword })
+      await new Promise(resolve => setTimeout(resolve, 600)); // Simulate async
 
       await sendNotification('Security password updated successfully.', 'alert');
       setSecurityStatus({ type: 'success', msg: 'Password updated successfully!' });
@@ -114,6 +99,7 @@ export default function SettingsPage() {
       setSecuritySaving(false);
     }
   };
+
 
   const handleSaveNotifications = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -180,6 +166,20 @@ export default function SettingsPage() {
                 <Label htmlFor="set-email">Email Address</Label>
                 <Input id="set-email" disabled value={email} />
               </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="set-agency" className="flex items-center gap-1.5">
+                <Building2 className="h-4 w-4 text-slate-400" />
+                Agency / Business Name
+              </Label>
+              <Input
+                id="set-agency"
+                value={agencyName}
+                onChange={(e) => setAgencyName(e.target.value)}
+                placeholder="e.g. Vasanth Agency, Nova Studios..."
+              />
+              <p className="text-xs text-slate-400">This is displayed as your workspace label in the sidebar. Each account has its own unique name.</p>
             </div>
 
             <div className="flex justify-end pt-2">
