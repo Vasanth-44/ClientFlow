@@ -92,7 +92,7 @@ export function OnboardingModal() {
                     type="text"
                     value={name}
                     onChange={(e) => { setName(e.target.value); setErrors(p => ({ ...p, name: undefined })); }}
-                    placeholder="e.g. Vasanth Kumar"
+                    placeholder="e.g. John Smith"
                     className={`w-full rounded-xl border px-4 py-3 text-sm text-white bg-slate-900 placeholder:text-slate-600 outline-none transition-all focus:ring-2 ${errors.name ? 'border-red-500/60 focus:ring-red-500/30' : 'border-slate-700 focus:ring-indigo-500/40 focus:border-indigo-500/50'}`}
                   />
                   {errors.name && <p className="text-xs text-red-400">{errors.name}</p>}
@@ -107,7 +107,7 @@ export function OnboardingModal() {
                     type="text"
                     value={agencyName}
                     onChange={(e) => { setAgencyName(e.target.value); setErrors(p => ({ ...p, agency: undefined })); }}
-                    placeholder="e.g. Vasanth Agency, Nova Studios..."
+                    placeholder="e.g. Nova Studios, Apex Digital..."
                     className={`w-full rounded-xl border px-4 py-3 text-sm text-white bg-slate-900 placeholder:text-slate-600 outline-none transition-all focus:ring-2 ${errors.agency ? 'border-red-500/60 focus:ring-red-500/30' : 'border-slate-700 focus:ring-indigo-500/40 focus:border-indigo-500/50'}`}
                   />
                   {errors.agency && <p className="text-xs text-red-400">{errors.agency}</p>}

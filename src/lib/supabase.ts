@@ -745,17 +745,17 @@ class MockSupabaseClient {
         return [
           {
             id: 'team1',
-            owner_id: 'google-oauth-mock-id',
-            name: 'Vasanth Agency',
+            owner_id: 'demo-user-id',
+            name: 'Demo Agency',
             created_at: new Date().toISOString(),
           }
         ];
       case 'team_members':
         return [
-          { id: 'tm1', team_id: 'team1', name: 'Vasanth', email: 'admin@clientflow.ai', role: 'Owner', status: 'Active', created_at: new Date().toISOString() },
-          { id: 'tm2', team_id: 'team1', name: 'Anjali Sharma', email: 'anjali@lagnavastra.com', role: 'Admin', status: 'Active', created_at: new Date().toISOString() },
-          { id: 'tm3', team_id: 'team1', name: 'Rohan Verma', email: 'rohan@lagnavastra.com', role: 'Member', status: 'Active', created_at: new Date().toISOString() },
-          { id: 'tm4', team_id: 'team1', name: 'Siddharth Sen', email: 'siddharth@lagnavastra.com', role: 'Member', status: 'Pending', created_at: new Date().toISOString() },
+          { id: 'tm1', team_id: 'team1', name: 'Alex Johnson', email: 'alex@demo-agency.com', role: 'Owner', status: 'Active', created_at: new Date().toISOString() },
+          { id: 'tm2', team_id: 'team1', name: 'Priya Sharma', email: 'priya@demo-agency.com', role: 'Admin', status: 'Active', created_at: new Date().toISOString() },
+          { id: 'tm3', team_id: 'team1', name: 'Rohan Verma', email: 'rohan@demo-agency.com', role: 'Member', status: 'Active', created_at: new Date().toISOString() },
+          { id: 'tm4', team_id: 'team1', name: 'Sara Chen', email: 'sara@demo-agency.com', role: 'Member', status: 'Pending', created_at: new Date().toISOString() },
         ];
       case 'proposals':
         return [

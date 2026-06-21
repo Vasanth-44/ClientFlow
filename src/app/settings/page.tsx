@@ -177,7 +177,7 @@ export default function SettingsPage() {
                 id="set-agency"
                 value={agencyName}
                 onChange={(e) => setAgencyName(e.target.value)}
-                placeholder="e.g. Vasanth Agency, Nova Studios..."
+                placeholder="e.g. Nova Studios, Apex Digital..."
               />
               <p className="text-xs text-slate-400">This is displayed as your workspace label in the sidebar. Each account has its own unique name.</p>
             </div>

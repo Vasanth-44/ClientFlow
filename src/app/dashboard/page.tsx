@@ -80,7 +80,9 @@ export default function DashboardPage() {
 
   // Time-based greeting state
   const [greeting, setGreeting] = useState('Good afternoon');
-  const [teamName, setTeamName] = useState('My Agency');
+
+  // Greeting label: use agency name if set, else user's first name
+  const greetingLabel = user?.agencyName || user?.name?.split(' ')[0] || 'there';
 
   // AI Ask Anything State
   const [aiQuery, setAiQuery] = useState('');
@@ -117,14 +119,7 @@ export default function DashboardPage() {
     if (!user) return;
     try {
       // 0. Fetch Agency/Team Name
-      const { data: teamData } = await supabase.from('teams').select('name').single();
-      if (teamData) {
-        setTeamName(teamData.name);
-      } else {
-        const defaultTeamObj = { name: 'My Agency', owner_id: user.id };
-        const { data: newTeam } = await supabase.from('teams').insert(defaultTeamObj).select().single();
-        if (newTeam) setTeamName(newTeam.name);
-      }
+      // Agency name comes from user profile (AuthContext), not from DB
 
       // 1. Fetch Leads Count & Pipeline status
       const { data: leads } = await supabase.from('leads').select('id, status');
@@ -301,7 +296,7 @@ export default function DashboardPage() {
         <div className="space-y-4 relative">
           <div className="space-y-1">
             <h2 className="text-xl sm:text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-50">
-              {greeting}, <span className="underline decoration-zinc-300 dark:decoration-zinc-800 underline-offset-4">{teamName}</span>.
+              {greeting}, <span className="underline decoration-zinc-300 dark:decoration-zinc-800 underline-offset-4">{greetingLabel}</span>.
             </h2>
             <p className="text-xs text-zinc-500 max-w-lg leading-relaxed">
               Analyze leads conversions, manage active project scope, and audit billing collections inside ClientFlow AI.

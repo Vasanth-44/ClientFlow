@@ -167,7 +167,7 @@ export default function RegisterPage() {
                     <User className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 pointer-events-none" />
                     <input id="reg-name" type="text" autoComplete="name" value={name}
                       onChange={e => { setName(e.target.value); setFieldErrors(p => ({ ...p, name: '' })); }}
-                      placeholder="e.g. Vasanth Kumar"
+                      placeholder="e.g. Your Name"
                       className={`w-full rounded-xl border bg-slate-900/60 pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-slate-600 outline-none transition-all focus:ring-2 ${fieldErrors.name ? 'border-red-500/60 focus:ring-red-500/30' : 'border-slate-700 focus:border-indigo-500/60 focus:ring-indigo-500/30'}`} />
                   </div>
                   {fieldErrors.name && <p className="text-xs text-red-400">{fieldErrors.name}</p>}
@@ -180,7 +180,7 @@ export default function RegisterPage() {
                     <Building2 className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 pointer-events-none" />
                     <input id="reg-agency" type="text" value={agencyName}
                       onChange={e => { setAgencyName(e.target.value); setFieldErrors(p => ({ ...p, agencyName: '' })); }}
-                      placeholder="e.g. Vasanth Agency, Nova Digital..."
+                      placeholder="e.g. Nova Studios, Apex Digital..."
                       className={`w-full rounded-xl border bg-slate-900/60 pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-slate-600 outline-none transition-all focus:ring-2 ${fieldErrors.agencyName ? 'border-red-500/60 focus:ring-red-500/30' : 'border-slate-700 focus:border-indigo-500/60 focus:ring-indigo-500/30'}`} />
                   </div>
                   {fieldErrors.agencyName
